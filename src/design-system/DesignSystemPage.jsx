@@ -18,6 +18,7 @@ import {
   CardHeader,
   CardTitle,
   Collapsible,
+  CodeBlock,
   Separator,
   Sheet,
   SiteNav,
@@ -39,6 +40,7 @@ import {
   typeTokens,
 } from './tokens.js';
 import FlickeringGrid from './FlickeringGrid.jsx';
+import skillSource from '../../skill.md?raw';
 
 const navigationTree = [
   { name: 'Start here', children: [{ id: 'overview', label: 'Introduction' }] },
@@ -221,7 +223,7 @@ export default function DesignSystemPage() {
         </>
       </main>
       </>}
-      {activeScreen === 'Code Skill' && <main className="ds-content ds-blank-screen" />}
+      {activeScreen === 'Code Skill' && <main className="ds-content ds-skill-screen"><section className="skill-page"><h1>Code Skill</h1><p>Instructions that turn my design system into a reusable capability for AI agents, enabling them to build new interfaces with consistent visual language and intentional design decisions.</p><CodeBlock title="skill.md" code={skillSource} /></section></main>}
       {activeScreen === 'Examples' && <main className="ds-content ds-blank-screen" />}
       <SiteNav variant="floating" mode={mode} onToggleTheme={() => setMode(mode === 'dark' ? 'light' : 'dark')} active={activeScreen} onNavigate={(screen) => { setActiveScreen(screen); window.scrollTo({ top: 0, behavior: 'smooth' }); }} />
     </div>

@@ -32,6 +32,39 @@ export const semanticTokens = {
   sidebarRing: { label: 'Sidebar ring', light: 'oklch(0.708 0 0)', dark: 'oklch(0.556 0 0)', usage: 'Sidebar focus ring' },
 };
 
+export const colorTokenGroups = [
+  {
+    name: 'Surfaces',
+    description: 'Page, card, overlay, and muted backgrounds.',
+    tokens: ['background', 'card', 'popover', 'muted'],
+  },
+  {
+    name: 'Text',
+    description: 'Primary and supporting text colors for each surface.',
+    tokens: ['foreground', 'cardForeground', 'popoverForeground', 'mutedForeground'],
+  },
+  {
+    name: 'Actions and controls',
+    description: 'Control fills, paired label colors, borders, and focus rings.',
+    tokens: ['primary', 'primaryForeground', 'secondary', 'secondaryForeground', 'accent', 'accentForeground', 'border', 'input', 'ring'],
+  },
+  {
+    name: 'Status',
+    description: 'Colors used to communicate destructive actions and errors.',
+    tokens: ['destructive'],
+  },
+  {
+    name: 'Charts',
+    description: 'Reserved chart colors from the source theme; no chart component uses them yet.',
+    tokens: ['chart1', 'chart2', 'chart3', 'chart4', 'chart5'],
+  },
+  {
+    name: 'Sidebar',
+    description: 'Dedicated rail surfaces, text, selected states, borders, and focus ring.',
+    tokens: ['sidebar', 'sidebarForeground', 'sidebarPrimary', 'sidebarPrimaryForeground', 'sidebarAccent', 'sidebarAccentForeground', 'sidebarBorder', 'sidebarRing'],
+  },
+];
+
 export const rawPalette = [
   { label: 'Sprout icon · light', value: '#5C8A60', group: 'Illustration-specific' },
   { label: 'Sprout icon · dark', value: '#9DBD9F', group: 'Illustration-specific' },

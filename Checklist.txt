@@ -1,0 +1,23 @@
+[] 1. Design system audit
+Extract all existing colors, typography, spacing, radius, elevation, motion and components from my portfolio.
+
+[] 2. Build documentation page
+Create `/design-system` with a left sidebar and central content. No Storybook.
+
+[] 3. Implement components
+Build all discovered reusable components, including the eight mandatory types: Button, Input, Card, Tag, Nav, List, Modal/Sheet and Avatar.
+
+[] 4. Create Claude Code skill
+Write `SKILL.md` and reference files explaining how to use and extend the design system.
+
+[] 5. Messaging app
+Build 3 distinct layouts for a Slack alternative.
+
+[] 6. Goodreads profile
+Build 3 distinct reader profile layouts.
+
+[] 7. Select winners
+Choose one layout per product and explain why in 1–2 sentences.
+
+[] 8. QA and submission
+Test all 6 layouts, write README, commit changes incrementally, and submit GitHub repo or ZIP including `.git`.

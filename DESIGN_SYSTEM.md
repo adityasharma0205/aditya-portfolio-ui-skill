@@ -36,7 +36,7 @@ Most UI color is semantic. The sprout illustration has light `#5C8A60` and dark 
 
 ### Elevation and motion
 
-Elevation uses border rings and Tailwind `shadow-sm`, `shadow`, and `shadow-lg`, with a soft dark tooltip shadow. The source reveal animation is a 400ms ease-out blur/fade with 6px offset/blur and 40ms base delay; lists commonly stagger by 50ms. Character reveals use 30ms. Dock magnification uses a spring (mass .1, stiffness 150, damping 12). Project link/ring feedback and floating menu transitions are brief. The source does not define a reduced-motion override; this documentation app adds one for accessibility.
+Elevation uses border rings and Tailwind `shadow-sm`, `shadow`, and `shadow-lg`, with a soft dark tooltip shadow. The portfolio does not define a shared named duration/easing scale. Existing implementations include a 400ms `ease-out` section reveal, 50ms list staggering, 30ms character reveals, and a 450ms project-screen transition using `cubic-bezier(.2,.75,.25,1)`. Local interface transitions include 150ms control feedback, 180ms project-card hover, and a 200ms theme change. The design-system page proposes `--motion-duration-fast` (150ms), `--motion-duration-standard` (200ms), `--motion-duration-emphasis` (400ms), `--motion-easing-standard` (`cubic-bezier(.2,.75,.25,1)`), and `--motion-easing-enter` (`ease-out`) as shared CSS variables, promoted from those observed values. Its previews use those variables directly. The documentation app disables previews when reduced motion is preferred.
 
 ## Portfolio patterns
 

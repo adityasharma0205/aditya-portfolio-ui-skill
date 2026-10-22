@@ -14,6 +14,13 @@ export const semanticTokens = {
   accent: { label: 'Accent', light: 'oklch(0.97 0 0)', dark: 'oklch(0.269 0 0)', usage: 'Hover and selection surfaces' },
   accentForeground: { label: 'Accent foreground', light: 'oklch(0.205 0 0)', dark: 'oklch(0.985 0 0)', usage: 'Text on accent surfaces' },
   destructive: { label: 'Destructive', light: 'oklch(0.577 0.245 27.325)', dark: 'oklch(0.704 0.191 22.216)', usage: 'Destructive actions and errors' },
+  destructiveForeground: { label: 'Destructive foreground', light: 'oklch(0.985 0 0)', dark: 'oklch(0.145 0 0)', usage: 'Content on destructive surfaces' },
+  success: { label: 'Success', light: '#15803d', dark: '#4ade80', usage: 'Completed actions and positive states' },
+  successForeground: { label: 'Success foreground', light: '#ffffff', dark: '#052e16', usage: 'Content on success surfaces' },
+  warning: { label: 'Warning', light: '#a16207', dark: '#fbbf24', usage: 'Caution and attention states' },
+  warningForeground: { label: 'Warning foreground', light: '#ffffff', dark: '#422006', usage: 'Content on warning surfaces' },
+  info: { label: 'Info', light: '#0369a1', dark: '#38bdf8', usage: 'Informational states and guidance' },
+  infoForeground: { label: 'Info foreground', light: '#ffffff', dark: '#082f49', usage: 'Content on informational surfaces' },
   border: { label: 'Border', light: 'oklch(0.922 0 0)', dark: 'oklch(1 0 0 / 10%)', usage: 'Card and divider outlines' },
   input: { label: 'Input', light: 'oklch(0.922 0 0)', dark: 'oklch(1 0 0 / 15%)', usage: 'Input borders' },
   ring: { label: 'Ring', light: 'oklch(0.708 0 0)', dark: 'oklch(0.556 0 0)', usage: 'Keyboard focus rings' },
@@ -50,8 +57,8 @@ export const colorTokenGroups = [
   },
   {
     name: 'Status',
-    description: 'Colors used to communicate destructive actions and errors.',
-    tokens: ['destructive'],
+    description: 'Paired colors for destructive, success, warning, and informational states.',
+    tokens: ['destructive', 'destructiveForeground', 'success', 'successForeground', 'warning', 'warningForeground', 'info', 'infoForeground'],
   },
   {
     name: 'Charts',
@@ -98,9 +105,23 @@ export const layoutTokens = {
   ],
   spacing: {
     base: 'Tailwind spacing unit: 4px (0.25rem)',
-    common: ['2px', '4px', '6px', '8px', '12px', '16px', '20px', '24px', '32px', '40px', '48px', '56px', '64px', '80px'],
+    scale: [
+      { token: 'spacing-01', rem: '0.125', px: 2 },
+      { token: 'spacing-02', rem: '0.25', px: 4 },
+      { token: 'spacing-03', rem: '0.375', px: 6 },
+      { token: 'spacing-04', rem: '0.5', px: 8 },
+      { token: 'spacing-05', rem: '0.75', px: 12 },
+      { token: 'spacing-06', rem: '1', px: 16 },
+      { token: 'spacing-07', rem: '1.25', px: 20 },
+      { token: 'spacing-08', rem: '1.5', px: 24 },
+      { token: 'spacing-09', rem: '2', px: 32 },
+      { token: 'spacing-10', rem: '2.5', px: 40 },
+      { token: 'spacing-11', rem: '3', px: 48 },
+      { token: 'spacing-12', rem: '3.5', px: 56 },
+      { token: 'spacing-13', rem: '4', px: 64 },
+      { token: 'spacing-14', rem: '5', px: 80 },
+    ],
     layout: ['24px page padding', '48px top padding', '56px section gaps', '80px project grid max width', '112px desktop column gap'],
-    note: 'The reference combines the default Tailwind spacing scale with explicit one-off values such as 11px timeline dots, 52px nested-role alignment, 76px profile avatars, and 280px profile rails.',
   },
   breakpoints: [
     { name: 'sm', value: '640px', use: 'Project grid becomes two columns; featured cards can become horizontal' },
@@ -115,27 +136,34 @@ export const layoutTokens = {
   ],
 };
 
-export const motionTokens = [
-  { name: 'Blur fade', value: '400ms ease-out', note: 'Default section reveal; starts 6px above with 6px blur and 40ms base delay' },
-  { name: 'Stagger', value: '50ms', note: 'Per-item reveal increment; text character reveal uses 30ms' },
-  { name: 'Card / link hover', value: '200ms', note: 'Ring, color, and external-arrow transitions' },
-  { name: 'Floating menu', value: '150–180ms', note: 'Icon swap and panel entrance/exit' },
-  { name: 'Sheet', value: '300ms close / 500ms open', note: 'Directional slide with fade overlay' },
-  { name: 'Dock spring', value: 'mass 0.1 · stiffness 150 · damping 12', note: 'Pointer-distance icon magnification' },
-  { name: 'Reduced motion', value: 'Not explicitly authored', note: 'The source does not define a reduced-motion override for these effects' },
-];
+export const proposedMotionTokens = {
+  durations: [
+    { name: 'Fast', variable: '--motion-duration-fast', value: '150ms', usage: 'Immediate control and navigation feedback.' },
+    { name: 'Standard', variable: '--motion-duration-standard', value: '200ms', usage: 'Cards, links, and common interface transitions.' },
+    { name: 'Emphasis', variable: '--motion-duration-emphasis', value: '400ms', usage: 'Section entrances and larger changes in state.' },
+  ],
+  easings: [
+    { name: 'Standard', variable: '--motion-easing-standard', value: 'cubic-bezier(.2,.75,.25,1)', usage: 'Balanced movement for interface transitions.' },
+    { name: 'Enter', variable: '--motion-easing-enter', value: 'ease-out', usage: 'Movement that settles into its final state.' },
+  ],
+};
+
+export const motionStyle = Object.fromEntries([
+  ...proposedMotionTokens.durations,
+  ...proposedMotionTokens.easings,
+].map(({ variable, value }) => [variable, value]));
 
 export const elevationTokens = [
-  { name: 'Ring 2', value: 'ring-2 ring-border', use: 'Avatar, education logos, selected/hover card' },
-  { name: 'Ring 4', value: 'ring-4 ring-muted', use: 'Profile avatar' },
-  { name: 'shadow-sm', value: 'Tailwind shadow-sm', use: 'Buttons and raised small controls' },
-  { name: 'shadow', value: 'Tailwind shadow', use: 'Education/company marks' },
-  { name: 'shadow-lg', value: 'Tailwind shadow-lg', use: 'Profile avatar and floating menu button' },
-  { name: 'Tooltip shadow', value: '0 10px 40px -10px rgba(0,0,0,.3/.5)', use: 'Light/dark tooltip surface' },
+  { name: 'Ring 2', value: 'ring-2 ring-border', shadow: '0 0 0 2px var(--border)' },
+  { name: 'Ring 4', value: 'ring-4 ring-muted', shadow: '0 0 0 4px var(--muted)' },
+  { name: 'Shadow small', value: 'shadow-sm', shadow: '0 1px 2px 0 rgb(0 0 0 / 5%)' },
+  { name: 'Shadow', value: 'shadow', shadow: '0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px -1px rgb(0 0 0 / 10%)' },
+  { name: 'Shadow large', value: 'shadow-lg', shadow: '0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%)' },
+  { name: 'Tooltip shadow', value: 'tooltip shadow', shadow: '0 10px 40px -10px rgb(0 0 0 / 30%)' },
 ];
 
 export function themeStyle(mode = 'dark') {
-  const style = { '--radius': '0.625rem', '--ds-radius': '0.625rem' };
+  const style = { '--radius': '0.625rem', '--ds-radius': '0.625rem', ...motionStyle };
   for (const [key, token] of Object.entries(semanticTokens)) {
     const cssName = key.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
     style[`--${cssName}`] = token[mode];

@@ -109,22 +109,29 @@ function SectionBlock({ id, children, className = '' }) {
   return <section id={id} className={`doc-section ${className}`}>{children}</section>;
 }
 
-function MotionPreview({ durationToken, easingToken }) {
+function MotionPreview({ durationToken, easingToken, phase = 0 }) {
   const [active, setActive] = useState(false);
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
-    const timer = window.setInterval(() => setActive((value) => !value), 1500);
-    return () => window.clearInterval(timer);
-  }, []);
+    let interval;
+    const start = window.setTimeout(() => {
+      setActive(true);
+      interval = window.setInterval(() => setActive((value) => !value), 1800);
+    }, phase);
+    return () => {
+      window.clearTimeout(start);
+      if (interval) window.clearInterval(interval);
+    };
+  }, [phase]);
 
   return <div className="motion-preview" aria-hidden="true" style={{ '--preview-duration': `var(${durationToken})`, '--preview-easing': `var(${easingToken})` }}><span className="motion-preview-track"><i className={active ? 'is-active' : ''} /></span></div>;
 }
 
-function MotionTokenCard({ item, durationToken, easingToken }) {
+function MotionTokenCard({ item, durationToken, easingToken, phase }) {
   return (
     <article className="radius-card motion-specimen-card">
-      <MotionPreview durationToken={durationToken} easingToken={easingToken} />
+      <MotionPreview durationToken={durationToken} easingToken={easingToken} phase={phase} />
       <div className="motion-specimen-meta">
         <strong>{item.name}</strong>
         <code>{item.variable}</code>
@@ -236,9 +243,9 @@ export default function DesignSystemPage() {
           <div className="section-title-line"><SectionIntro label="01.6 / FOUNDATION" title="Motion" description="Motion durations and easing curves." /></div>
           <div className="motion-spec-group">
             <h4 className="motion-category-title">Duration</h4>
-            <div className="motion-spec-grid">{proposedMotionTokens.durations.map((item) => <MotionTokenCard key={item.variable} item={item} durationToken={item.variable} easingToken="--motion-easing-standard" />)}</div>
+            <div className="motion-spec-grid">{proposedMotionTokens.durations.map((item, index) => <MotionTokenCard key={item.variable} item={item} durationToken={item.variable} easingToken="--motion-easing-standard" phase={index * 300} />)}</div>
             <h4 className="motion-category-title">Easing</h4>
-            <div className="motion-spec-grid motion-spec-grid--easing">{proposedMotionTokens.easings.map((item) => <MotionTokenCard key={item.variable} item={item} durationToken="--motion-duration-standard" easingToken={item.variable} />)}</div>
+            <div className="motion-spec-grid motion-spec-grid--easing">{proposedMotionTokens.easings.map((item, index) => <MotionTokenCard key={item.variable} item={item} durationToken="--motion-duration-standard" easingToken={item.variable} phase={index * 500} />)}</div>
           </div>
         </SectionBlock>
 

@@ -130,7 +130,7 @@ function MotionTokenCard({ item, durationToken, easingToken }) {
 }
 
 export default function DesignSystemPage() {
-  const [mode, setMode] = useState('dark');
+  const [mode, setMode] = useState('light');
   const [activeScreen, setActiveScreen] = useState(() => {
     try {
       const savedScreen = window.localStorage.getItem('aditya-portfolio-active-screen');

@@ -3,9 +3,16 @@ import { ArrowLeft } from 'lucide-react';
 import { ThemeToggle } from '../components/ThemeToggle.jsx';
 import { themeStyle } from '../tokens.js';
 import TeamMessagingLayout from './TeamMessagingLayout.jsx';
+import TeamMessagingLayout2 from './TeamMessagingLayout2.jsx';
+import TeamMessagingLayout3 from './TeamMessagingLayout3.jsx';
+
+const layouts = [TeamMessagingLayout, TeamMessagingLayout2, TeamMessagingLayout3];
 
 export default function MessagingFullViewPage() {
-  const [mode, setMode] = useState('dark');
+  const [mode, setMode] = useState('light');
+  const requestedLayout = Number(new URLSearchParams(window.location.search).get('layout')) || 1;
+  const layoutNumber = Math.min(Math.max(requestedLayout, 1), layouts.length);
+  const ActiveLayout = layouts[layoutNumber - 1];
 
   return (
     <main className="messaging-tab-page" data-mode={mode} style={themeStyle(mode)}>
@@ -16,12 +23,12 @@ export default function MessagingFullViewPage() {
         </a>
         <div className="messaging-tab-title">
           <h1>Team messaging workspace</h1>
-          <span>Layout 1</span>
+          <span>Layout {layoutNumber}</span>
         </div>
         <ThemeToggle mode={mode} onToggle={() => setMode((current) => current === 'dark' ? 'light' : 'dark')} />
       </header>
       <div className="messaging-tab-workspace">
-        <TeamMessagingLayout />
+        <ActiveLayout />
       </div>
     </main>
   );

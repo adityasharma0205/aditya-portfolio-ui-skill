@@ -262,13 +262,13 @@ export default function DesignSystemPage() {
         </SectionBlock>
 
         <SectionBlock id="nav">
-          <div className="section-title-line"><SectionIntro label="03.5 / NAVIGATION" title="Nav" description="A horizontal navigation bar with a selected destination." /></div>
-          <div className="component-demo-surface"><div className="dock-demo"><SiteNav variant="inline" ariaLabel="Example navigation" items={[{ label: 'Overview', href: '#overview' }, { label: 'Resources', href: '#colors' }, { label: 'Settings', href: '#motion' }]} active="Overview" showThemeToggle={false} /></div></div>
+          <div className="section-title-line"><SectionIntro label="03.5 / NAVIGATION" title="Nav" description="The same navigation dock used throughout the site." /></div>
+          <div className="component-demo-surface"><div className="dock-demo"><SiteNav variant="inline" mode={mode} onToggleTheme={() => setMode(mode === 'dark' ? 'light' : 'dark')} /></div></div>
         </SectionBlock>
 
         <SectionBlock id="list">
           <div className="section-title-line"><SectionIntro label="03.6 / CONTENT" title="List" description="Chronological entries with dates, titles, supporting copy, and optional tags." /></div>
-          <div className="component-demo-surface"><List items={[{ date: 'January 2026', title: 'First entry', description: 'A short description providing context for this item.', tag: 'Category' }, { date: 'December 2025', title: 'Second entry', description: 'Additional details can be displayed alongside each entry.', tag: 'Update' }]} /></div>
+          <div className="component-demo-surface"><List items={[{ date: 'January 2026', title: 'First entry', description: 'A short description providing context for this item.', tag: 'Category' }, { date: 'December 2025', title: 'Second entry', description: 'Additional details can be displayed alongside each entry.', tag: 'Update' }, { date: 'November 2025', title: 'Third entry', description: 'More context can be included to describe this item.', tag: 'Note' }]} /></div>
         </SectionBlock>
 
         <SectionBlock id="modal">

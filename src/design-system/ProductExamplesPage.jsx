@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import TeamMessagingLayout from './examples/TeamMessagingLayout.jsx';
-import TeamMessagingLayout2 from './examples/TeamMessagingLayout2.jsx';
-import TeamMessagingLayout3 from './examples/TeamMessagingLayout3.jsx';
+import { Badge } from './components/Tag.jsx';
+import TeamMessagingThreadFirst, { teamThreadFirstDescription } from '../../products/TeamMessagingThreadFirst.jsx';
+import TeamMessagingInbox, { teamInboxDescription } from '../../products/TeamMessagingInbox.jsx';
+import TeamMessagingKeyboard, { teamKeyboardDescription } from '../../products/TeamMessagingKeyboard.jsx';
+import ReadingJournal, { readingJournalDescription } from '../../products/ReadingJournal.jsx';
+import DigitalLibrary, { digitalLibraryDescription } from '../../products/DigitalLibrary.jsx';
+import ReaderActivity, { readerActivityDescription } from '../../products/ReaderActivity.jsx';
 
 const messagingPreviewStep = 1298;
 
@@ -11,24 +15,33 @@ const productLayouts = [
     id: 'team-messaging',
     product: 'Team messaging app',
     layouts: [
-      { number: '01', name: 'Workspace', description: 'Channels, a conversation thread, and message composer.', tint: '#dcecff', Component: TeamMessagingLayout },
-      { number: '02', name: 'Conversation first', description: 'A focused channel conversation with room for context and replies.', tint: '#e9e2ff', Component: TeamMessagingLayout2 },
-      { number: '03', name: 'Split conversation', description: 'Channels, recent discussions, and the active thread in separate regions.', tint: '#d9f1e8', Component: TeamMessagingLayout3 },
+      { number: '01', name: 'Thread-first workspace', description: teamThreadFirstDescription, Component: TeamMessagingThreadFirst },
+      { number: '02', name: 'Unified inbox', description: teamInboxDescription, Component: TeamMessagingInbox },
+      { number: '03', name: 'Keyboard-driven workspace', description: teamKeyboardDescription, Component: TeamMessagingKeyboard },
     ],
+    recommendedLayout: 1,
   },
   {
     id: 'goodreads',
     product: 'Goodreads',
     layouts: [
-      { number: '04', name: 'Reader profile', description: 'Currently reading, shelves, reading stats or yearly challenge, and recent reviews.', tint: '#f6e4d8' },
-      { number: '05', name: 'Bookshelves', description: 'A reader’s organized shelves and book lists.', tint: '#f5e5ed' },
-      { number: '06', name: 'Book and review', description: 'A book’s details alongside a reader’s review and rating.', tint: '#f5efcf' },
+      { number: '01', name: 'Reading Journal', description: readingJournalDescription, Component: ReadingJournal },
+      { number: '02', name: 'Digital Library', description: digitalLibraryDescription, Component: DigitalLibrary },
+      { number: '03', name: 'Reader Activity', description: readerActivityDescription, Component: ReaderActivity },
     ],
+    recommendedLayout: 0,
   },
 ];
 
 export default function ProductExamplesPage() {
   const [activeScreens, setActiveScreens] = useState([0, 0]);
+  const [viewportWidth, setViewportWidth] = useState(() => window.innerWidth);
+
+  useEffect(() => {
+    const updateViewportWidth = () => setViewportWidth(window.innerWidth);
+    window.addEventListener('resize', updateViewportWidth);
+    return () => window.removeEventListener('resize', updateViewportWidth);
+  }, []);
 
   const showLayout = (groupIndex, direction) => {
     const layouts = productLayouts[groupIndex].layouts;
@@ -57,16 +70,12 @@ export default function ProductExamplesPage() {
                   className="product-screen-viewport"
                   aria-label={`${group.product} product layouts`}
                 >
-                  <div className="product-screen-track" style={{ '--product-track-offset': `${activeIndex * -messagingPreviewStep}px` }}>
+                  <div className="product-screen-track" style={{ '--product-track-offset': `${activeIndex * -(viewportWidth <= (group.id === 'team-messaging' ? 960 : 720) ? viewportWidth - 22 : messagingPreviewStep)}px` }}>
                     {group.layouts.map((layout, layoutIndex) => (
-                      <div className={`product-screen-preview${layout.Component ? ' product-screen-preview--messaging' : ''}`} key={layout.number}>
-                        {layout.Component ? (
-                          <div className={`product-screen-frame product-screen-frame--messaging product-screen-frame--messaging-${layoutIndex + 1}`} data-canvas-size="1280 x 832">
-                            <layout.Component />
-                          </div>
-                        ) : (
-                          <div className="product-screen-frame" style={{ '--canvas-tint': layout.tint }} data-canvas-size="1280 x 832" role="img" aria-label={`${group.product} ${layout.name} screen placeholder, 1280 by 832. ${layout.description}`} />
-                        )}
+                      <div className="product-screen-preview" key={layout.number}>
+                        <div className={`product-screen-frame${layout.Component ? ' product-screen-frame--reader' : ''}`} style={layout.tint ? { '--canvas-tint': layout.tint } : undefined} data-canvas-size="1280 x 832" role="group" aria-label={`${group.product} ${layout.name} layout. ${layout.description}`}>
+                          {layout.Component ? <layout.Component isActive={activeIndex === layoutIndex} /> : null}
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -75,7 +84,7 @@ export default function ProductExamplesPage() {
                 <button className="product-screen-next" type="button" aria-label={`Show next ${group.product} layout`} onClick={() => showLayout(groupIndex, 1)}><ChevronRight size={20} /></button>
               </div>
               <div className="product-layout-caption" aria-live="polite">
-                <h3>Layout {activeIndex + 1}</h3>
+                <div className="product-layout-caption-title"><h3>{layout.name}</h3>{activeIndex === group.recommendedLayout && <Badge className="product-layout-recommended-badge">Recommended</Badge>}</div>
                 <p>{layout.description}</p>
               </div>
             </section>

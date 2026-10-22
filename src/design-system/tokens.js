@@ -159,7 +159,10 @@ export const elevationTokens = [
 export function themeStyle(mode = 'dark') {
   const baseRadius = layoutTokens.radius.find(({ name }) => name === 'base')?.value ?? '10px';
   const radiusStyle = Object.fromEntries(layoutTokens.radius.map(({ name, value }) => [`--radius-${name}`, value]));
-  const style = { ...radiusStyle, '--radius': baseRadius, ...motionStyle };
+  const elevationStyle = Object.fromEntries(elevationTokens
+    .filter(({ name }) => ['Shadow small', 'Shadow', 'Shadow large', 'Tooltip shadow'].includes(name))
+    .map(({ name, shadow }) => [`--${name.toLowerCase().replaceAll(' ', '-')}`, shadow]));
+  const style = { ...radiusStyle, ...elevationStyle, '--radius': baseRadius, ...motionStyle };
   for (const [key, token] of Object.entries(semanticTokens)) {
     const cssName = key.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
     style[`--${cssName}`] = token[mode];

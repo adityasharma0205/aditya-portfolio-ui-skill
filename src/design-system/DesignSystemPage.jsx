@@ -3,7 +3,10 @@ import {
   ArrowUpRight,
   Check,
   Circle,
+  LayoutDashboard,
   PanelRight,
+  Settings2,
+  Users,
 } from 'lucide-react';
 import { Avatar } from './components/Avatar.jsx';
 import { Badge } from './components/Tag.jsx';
@@ -18,6 +21,18 @@ import { Modal } from './components/Modal.jsx';
 import { SiteNav } from './components/Nav.jsx';
 import { PromptBox } from './components/PromptBox.jsx';
 import { Sheet } from './components/Sheet.jsx';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from './components/Sidebar.jsx';
 import {
   elevationTokens,
   colorTokenGroups,
@@ -47,6 +62,7 @@ const navigationTree = [
     { id: 'card', label: 'Card' },
     { id: 'tag', label: 'Tag' },
     { id: 'nav', label: 'Nav' },
+    { id: 'sidebar', label: 'Sidebar' },
     { id: 'list', label: 'List' },
     { id: 'modal', label: 'Modal' },
     { id: 'sheet', label: 'Sheet' },
@@ -59,6 +75,51 @@ const navigationTree = [
 
 function SectionIntro({ title, description }) {
   return <div className="section-intro"><h2>{title}</h2><p>{description}</p></div>;
+}
+
+const sidebarPages = [
+  { id: 'overview', label: 'Overview', icon: LayoutDashboard, description: 'A quick view of recent activity and workspace updates.' },
+  { id: 'members', label: 'Members', icon: Users, description: 'Manage people and access across the workspace.' },
+  { id: 'settings', label: 'Settings', icon: Settings2, description: 'Adjust preferences for this workspace.' },
+];
+
+function SidebarExample() {
+  const [activePage, setActivePage] = useState('overview');
+  const page = sidebarPages.find(({ id }) => id === activePage) ?? sidebarPages[0];
+
+  return (
+    <div className="sidebar-demo-layout">
+      <Sidebar
+        label="Workspace example"
+      >
+        <SidebarHeader>
+          <div className="sidebar-demo-workspace"><span>Workspace</span><strong>Northstar Studio</strong></div>
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+            <SidebarMenu>
+              {sidebarPages.map(({ id, label, icon }) => (
+                <SidebarMenuItem key={id}>
+                  <SidebarMenuButton icon={icon} active={activePage === id} onClick={() => setActivePage(id)} badge={id === 'members' ? '4' : undefined}>
+                    {label}
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroup>
+        </SidebarContent>
+        <SidebarFooter>
+          <div className="sidebar-demo-profile"><Avatar initials="JD" alt="Jordan Davis" size="sm" /><span><strong>Jordan Davis</strong><small>Workspace admin</small></span></div>
+        </SidebarFooter>
+      </Sidebar>
+      <SidebarInset className="sidebar-demo-content" aria-live="polite">
+        <span>Workspace</span>
+        <h3>{page.label}</h3>
+        <p>{page.description}</p>
+      </SidebarInset>
+    </div>
+  );
 }
 
 function TokenColor({ name, token, mode }) {
@@ -261,40 +322,45 @@ export default function DesignSystemPage() {
           <div className="component-demo-surface"><div className="dock-demo"><SiteNav variant="inline" ariaLabel="Static navigation example" items={[{ label: 'Tab 1', icon: Circle }, { label: 'Tab 2', icon: Circle }, { label: 'Tab 3', icon: Circle }]} active="Tab 1" interactive={false} showThemeToggle /></div></div>
         </SectionBlock>
 
+        <SectionBlock id="sidebar">
+          <div className="section-title-line"><SectionIntro label="03.6 / NAVIGATION" title="Sidebar" description="Grouped app navigation with optional identity and account regions." /></div>
+          <div className="component-demo-surface"><SidebarExample /></div>
+        </SectionBlock>
+
         <SectionBlock id="list">
-          <div className="section-title-line"><SectionIntro label="03.6 / CONTENT" title="List" description="Chronological entries with dates, titles, supporting copy, and optional tags." /></div>
+          <div className="section-title-line"><SectionIntro label="03.7 / CONTENT" title="List" description="Chronological entries with dates, titles, supporting copy, and optional tags." /></div>
           <div className="component-demo-surface"><List items={[{ date: 'January 2026', title: 'First entry', description: 'A short description providing context for this item.', tag: 'Category' }, { date: 'December 2025', title: 'Second entry', description: 'Additional details can be displayed alongside each entry.', tag: 'Update' }, { date: 'November 2025', title: 'Third entry', description: 'More context can be included to describe this item.', tag: 'Note' }]} /></div>
         </SectionBlock>
 
         <SectionBlock id="modal">
-          <div className="section-title-line"><SectionIntro label="03.7 / OVERLAY" title="Modal" description="A centered dialog for focused decisions and short tasks." /></div>
+          <div className="section-title-line"><SectionIntro label="03.8 / OVERLAY" title="Modal" description="A centered dialog for focused decisions and short tasks." /></div>
           <div className="component-demo-surface sheet-demo"><Button variant="outline" onClick={() => { setModalResult(''); setModalOpen(true); }}>Open modal</Button>{modalResult && <p className="modal-result" role="status">{modalResult}</p>}</div>
           <Modal open={modalOpen} onOpenChange={setModalOpen} title="Confirm changes" description="Review the update before continuing."><p className="muted-copy">Your changes are ready to be saved.</p><div className="sheet-actions"><Button variant="outline" onClick={() => { setModalResult('Changes canceled.'); setModalOpen(false); }}>Cancel</Button><Button onClick={() => { setModalResult('Changes confirmed.'); setModalOpen(false); }}>Confirm</Button></div></Modal>
         </SectionBlock>
 
         <SectionBlock id="sheet">
-          <div className="section-title-line"><SectionIntro label="03.8 / OVERLAY" title="Sheet" description="A slide-over panel for focused details and secondary tasks." /></div>
+          <div className="section-title-line"><SectionIntro label="03.9 / OVERLAY" title="Sheet" description="A slide-over panel for focused details and secondary tasks." /></div>
           <div className="component-demo-surface sheet-demo"><Button variant="outline" onClick={() => setSheetOpen(true)}><PanelRight size={15} /> Open right sheet</Button></div>
           <Sheet open={sheetOpen} onOpenChange={setSheetOpen} title="Item details" description="View additional information and complete a secondary task without leaving the current page." side="right"><div className="sheet-detail"><Badge variant="secondary">In progress</Badge><p>This panel supports Escape, backdrop, and close-button behavior.</p><Input label="Quick note" placeholder="Add a short note" /></div><div className="sheet-actions"><Button variant="outline" onClick={() => setSheetOpen(false)}>Close panel</Button><Button onClick={() => setSheetOpen(false)}>Done <Check size={14} /></Button></div></Sheet>
         </SectionBlock>
 
         <SectionBlock id="avatar">
-          <div className="section-title-line"><SectionIntro label="03.9 / IDENTITY" title="Avatar" description="An image avatar with a readable initials fallback and size variants." /></div>
+          <div className="section-title-line"><SectionIntro label="03.10 / IDENTITY" title="Avatar" description="An image avatar with a readable initials fallback and size variants." /></div>
           <div className="component-demo-surface"><div className="avatar-row"><Avatar size="sm" initials="AS" alt="Small profile avatar" /><Avatar size="md" initials="AS" alt="Medium profile avatar" className="avatar-ring" /><Avatar size="lg" initials="AS" alt="Large profile avatar" className="avatar-ring" /><Avatar size="sm" src="/aditya-avatar.jpg" alt="Aditya Sharma, small photo avatar" /><Avatar size="md" src="/aditya-avatar.jpg" alt="Aditya Sharma, medium photo avatar" className="avatar-ring" /><Avatar size="lg" src="/aditya-avatar.jpg" alt="Aditya Sharma, large photo avatar" className="avatar-ring" /></div></div>
         </SectionBlock>
 
         <SectionBlock id="divider">
-          <div className="section-title-line"><SectionIntro label="03.10 / SEPARATOR" title="Divider" description="A subtle rule that separates related content." /></div>
+          <div className="section-title-line"><SectionIntro label="03.11 / SEPARATOR" title="Divider" description="A subtle rule that separates related content." /></div>
           <div className="component-demo-surface"><div className="divider-demo"><span>Section one</span><Divider /><span>Section two</span></div></div>
         </SectionBlock>
 
         <SectionBlock id="message-bubble">
-          <div className="section-title-line"><SectionIntro label="03.11 / MESSAGING" title="Message Bubble" description="A compact message with author and time metadata." /></div>
+          <div className="section-title-line"><SectionIntro label="03.12 / MESSAGING" title="Message Bubble" description="A compact message with author and time metadata." /></div>
           <div className="component-demo-surface"><div className="message-thread-demo"><MessageBubble author="Alex Morgan" time="9:41 AM">Could you share the latest update?</MessageBubble><MessageBubble author="You" time="9:42 AM" variant="outgoing">Yes, I’ll send it over shortly.</MessageBubble></div></div>
         </SectionBlock>
 
         <SectionBlock id="prompt-box">
-          <div className="section-title-line"><SectionIntro label="03.12 / INPUT" title="Prompt Box" description="A multiline text entry with a submit action." /></div>
+          <div className="section-title-line"><SectionIntro label="03.13 / INPUT" title="Prompt Box" description="A multiline text entry with a submit action." /></div>
           <div className="component-demo-surface"><div className="prompt-demo"><PromptBox onSubmit={(value) => setPromptResult(`Sent: ${value}`)} />{promptResult && <p className="prompt-result" role="status">{promptResult}</p>}</div></div>
         </SectionBlock>
 

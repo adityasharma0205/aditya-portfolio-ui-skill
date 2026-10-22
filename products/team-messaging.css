@@ -1,0 +1,313 @@
+.team-message-product {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  container: team-message / inline-size;
+}
+
+.team-message-thread-first { grid-template-columns: 232px minmax(0, 1fr); }
+.team-message-inbox-layout { grid-template-columns: 218px 292px minmax(0, 1fr); }
+.team-message-keyboard { grid-template-columns: minmax(0, 1fr); grid-template-rows: 66px 52px auto minmax(0, 1fr); }
+
+.team-message-sidebar {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+  padding: 22px 14px 14px;
+  border-right: 0;
+  background: var(--sidebar);
+  color: var(--sidebar-foreground);
+}
+
+.team-message-sidebar .ui-sidebar-header { padding: 0; }
+.team-message-sidebar .ui-sidebar-footer { padding: 13px 7px 2px; border-top: 0; }
+
+.team-message-workspace {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+  padding: 0 7px;
+}
+
+.team-message-mark {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: var(--radius);
+  background: var(--sidebar-primary);
+  color: var(--sidebar-primary-foreground);
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.team-message-workspace > div { display: grid; min-width: 0; gap: 3px; }
+.team-message-workspace > div span { color: var(--muted-foreground); font-size: 10px; }
+.team-message-workspace > div strong { overflow: hidden; font-size: 13px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+
+.team-message-channels { min-height: 0; flex: 1; overflow: auto; margin-top: 30px; }
+.team-message-channel-wrap + .team-message-channel-wrap { margin-top: 18px; }
+.team-message-channel-wrap h2 { margin: 0 9px 7px; color: var(--muted-foreground); font-size: 9px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.team-message-channel-row { display: flex; min-width: 0; align-items: center; }
+.team-message-channel {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  min-height: 34px;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 9px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  text-align: left;
+  transition: background var(--motion-duration-fast) var(--motion-easing-standard), color var(--motion-duration-fast) var(--motion-easing-standard);
+}
+.team-message-channel:hover,
+.team-message-channel.is-active { background: var(--sidebar-accent); color: var(--sidebar-accent-foreground); }
+.team-message-channel.is-active { font-weight: 600; }
+.team-message-channel > svg { flex: 0 0 auto; color: var(--muted-foreground); }
+.team-message-channel > span:nth-child(2) { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.team-message-channel-toggle { display: grid; width: 25px; height: 28px; flex: 0 0 auto; place-items: center; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--muted-foreground); cursor: pointer; }
+.team-message-channel-toggle:hover { background: var(--sidebar-accent); color: var(--sidebar-accent-foreground); }
+.team-message-channel-toggle:focus-visible,
+.team-message-subchannel:focus-visible,
+.team-keyboard-conversation-list button:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.team-message-subchannels { display: grid; gap: 2px; margin: 3px 0 6px 17px; padding-left: 8px; border-left: 1px solid var(--border); }
+.team-message-subchannel { display: flex; min-width: 0; min-height: 28px; align-items: center; gap: 6px; padding: 4px 7px; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--muted-foreground); cursor: pointer; font: inherit; font-size: 10px; text-align: left; }
+.team-message-subchannel > span:first-child { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.team-message-subchannel:hover,
+.team-message-subchannel.is-active { background: var(--sidebar-accent); color: var(--sidebar-accent-foreground); }
+.team-message-subchannel-unread { flex: 0 0 auto; color: var(--muted-foreground); font-size: 9px; }
+.team-message-unread,
+.team-message-queue-unread {
+  display: grid;
+  min-width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+  place-items: center;
+  padding-inline: 5px;
+  border-radius: var(--radius-full);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-size: 9px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.team-message-user { display: flex; min-width: 0; align-items: center; gap: 9px; padding: 13px 7px 2px; }
+.team-message-user > span:last-child { display: grid; min-width: 0; gap: 2px; }
+.team-message-user strong { overflow: hidden; font-size: 10px; font-weight: 550; text-overflow: ellipsis; white-space: nowrap; }
+.team-message-user small { overflow: hidden; color: var(--muted-foreground); font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+
+.team-message-thread-panel { display: grid; min-width: 0; min-height: 0; grid-template-rows: auto minmax(0, 1fr) auto; }
+.team-message-topline { padding: 28px clamp(28px, 4cqi, 58px) 22px; }
+.team-message-heading { display: flex; min-width: 0; align-items: flex-end; justify-content: space-between; gap: 20px; }
+.team-message-heading > div:first-child { min-width: 0; }
+.team-message-heading-channel { display: flex; align-items: center; gap: 7px; color: var(--muted-foreground); font-size: 11px; }
+.team-message-heading-channel svg { flex: 0 0 auto; }
+.team-message-heading h1 { overflow: hidden; margin: 8px 0 0; font-size: 22px; font-weight: 550; letter-spacing: -.04em; text-overflow: ellipsis; white-space: nowrap; }
+.team-message-heading p { margin: 6px 0 0; color: var(--muted-foreground); font-size: 11px; line-height: 1.5; }
+.team-message-heading-meta { display: flex; flex: 0 0 auto; align-items: center; gap: 8px; color: var(--muted-foreground); font-size: 10px; }
+.team-message-heading--compact { align-items: center; }
+.team-message-heading--compact h1 { margin-top: 4px; font-size: 17px; }
+.team-message-heading--compact .team-message-heading-channel { font-size: 10px; }
+
+.team-message-history {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+  gap: 22px;
+  overflow: auto;
+  padding: 20px clamp(28px, 5cqi, 72px) 28px;
+  overscroll-behavior: contain;
+}
+.team-message-row { display: flex; min-width: 0; align-items: flex-start; gap: 12px; }
+.team-message-row > .ui-avatar { flex: 0 0 auto; margin-top: 2px; }
+.team-message-row .message-bubble { max-width: min(760px, calc(100% - 44px)); margin: 0; padding: 1px 0; border: 0; border-radius: 0; background: transparent; }
+.team-message-row.is-own { justify-content: flex-end; }
+.team-message-row.is-own .message-bubble { padding: 10px 13px; border-radius: var(--radius); background: var(--secondary); }
+.team-message-row .message-bubble-meta { gap: 10px; font-size: 11px; }
+.team-message-row .message-bubble-meta strong { font-weight: 600; }
+.team-message-row .message-bubble-meta time { color: var(--muted-foreground); font-size: 10px; }
+.team-message-row .message-bubble p { margin: 6px 0 0; font-size: 12px; line-height: 1.6; }
+
+.team-message-composer { padding: 13px clamp(24px, 4cqi, 54px) 20px; background: var(--background); }
+.team-message-composer .prompt-box { gap: 6px; }
+.team-message-composer .prompt-box-label { font-size: 10px; font-weight: 550; }
+.team-message-composer .prompt-box-controls { align-items: flex-end; padding: 8px 10px; border-radius: var(--radius); background: var(--card); }
+.team-message-composer .prompt-box textarea { min-height: 46px; max-height: 120px; resize: vertical; font-family: var(--font-sans); font-size: 12px; }
+.team-message-composer .prompt-box-controls > .ui-button { flex: 0 0 auto; }
+.team-message-composer > p { margin: 6px 2px 0; color: var(--muted-foreground); font-size: 9px; }
+.team-message-product :is(button, textarea, input):focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+/* The inbox makes the queue a peer to the thread, while leaving the channel list quiet. */
+.team-message-queue { display: flex; min-width: 0; min-height: 0; flex-direction: column; padding: 24px 10px 12px; background: color-mix(in srgb, var(--muted) 42%, var(--background)); }
+.team-message-queue-heading { padding: 0 10px 16px; }
+.team-message-queue-heading > span { color: var(--muted-foreground); font-size: 9px; font-weight: 600; letter-spacing: .07em; }
+.team-message-queue-heading h1 { margin: 8px 0 4px; font-size: 16px; font-weight: 550; letter-spacing: -.03em; }
+.team-message-queue-heading p { margin: 0; color: var(--muted-foreground); font-size: 10px; }
+.team-message-queue-list { display: grid; align-content: start; gap: 3px; overflow: auto; }
+.team-message-queue-item { display: flex; width: 100%; min-width: 0; align-items: flex-start; gap: 9px; padding: 11px 9px; border: 0; border-radius: var(--radius); background: transparent; color: var(--foreground); cursor: pointer; text-align: left; transition: background var(--motion-duration-fast) var(--motion-easing-standard); }
+.team-message-queue-item:hover,
+.team-message-queue-item.is-active { background: var(--background); }
+.team-message-queue-copy { display: grid; min-width: 0; flex: 1; gap: 4px; }
+.team-message-queue-meta { display: flex; min-width: 0; align-items: baseline; justify-content: space-between; gap: 6px; }
+.team-message-queue-meta strong { overflow: hidden; font-size: 10px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.team-message-queue-meta time { flex: 0 0 auto; color: var(--muted-foreground); font-size: 9px; }
+.team-message-queue-sender { overflow: hidden; color: var(--muted-foreground); font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+.team-message-queue-preview { display: -webkit-box; overflow: hidden; color: var(--muted-foreground); font-size: 9px; line-height: 1.45; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.team-message-queue-note { margin: auto 10px 0; padding-top: 14px; color: var(--muted-foreground); font-size: 9px; line-height: 1.45; }
+.team-message-inbox-thread .team-message-history { padding-inline: clamp(16px, 2.5cqi, 34px); }
+.team-message-inbox-thread .team-message-composer { padding-inline: 18px; }
+
+/* Keyboard shortcuts are real actions and the switcher is a small, focused dialog. */
+.team-keyboard-commandbar { display: flex; min-height: 48px; align-items: center; justify-content: space-between; gap: 14px; padding: 7px clamp(18px, 3cqi, 38px); background: var(--muted); }
+.team-keyboard-commandbar > span,
+.team-keyboard-commandbar > div { display: flex; align-items: center; gap: 7px; }
+.team-keyboard-commandbar > span { font-size: 10px; font-weight: 550; }
+.team-keyboard-commandbar > div { color: var(--muted-foreground); font-size: 9px; }
+.team-keyboard-commandbar kbd { min-width: 25px; padding: 3px 5px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--background); color: var(--foreground); font: 10px var(--font-mono); text-align: center; }
+.team-keyboard-commandbar .ui-button { min-height: 29px; gap: 5px; padding-inline: 8px; font-size: 10px; }
+.team-keyboard-composer { min-width: 0; }
+.team-keyboard-workspacebar { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 18px; padding: 8px 30px; background: var(--muted); }
+.team-keyboard-identity,
+.team-keyboard-account { display: flex; min-width: 0; align-items: center; gap: 9px; }
+.team-keyboard-identity > div { display: grid; gap: 2px; }
+.team-keyboard-identity > div span { color: var(--muted-foreground); font-size: 9px; }
+.team-keyboard-identity > div strong { font-size: 12px; font-weight: 600; }
+.team-keyboard-commandbar { min-height: 0; gap: 18px; padding: 0; background: transparent; }
+.team-keyboard-commandbar > span { font-size: 10px; }
+.team-keyboard-commandbar > div { color: var(--muted-foreground); font-size: 9px; }
+.team-keyboard-account > span:last-child { display: grid; min-width: 0; gap: 2px; }
+.team-keyboard-account strong { font-size: 10px; font-weight: 550; }
+.team-keyboard-account small { color: var(--muted-foreground); font-size: 8px; }
+.team-keyboard-channels { display: flex; min-width: 0; align-items: center; gap: 5px; overflow-x: auto; padding: 7px 30px; background: var(--background); }
+.team-keyboard-channels-label { flex: 0 0 auto; margin-right: 8px; color: var(--muted-foreground); font-size: 9px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+.team-keyboard-channels > button { display: flex; min-height: 32px; flex: 0 0 auto; align-items: center; gap: 6px; padding: 5px 9px; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--muted-foreground); cursor: pointer; font: inherit; font-size: 10px; transition: background var(--motion-duration-fast) var(--motion-easing-standard), color var(--motion-duration-fast) var(--motion-easing-standard); }
+.team-keyboard-channels > button:hover,
+.team-keyboard-channels > button.is-active { background: var(--accent); color: var(--accent-foreground); }
+.team-keyboard-channels > button.is-active { font-weight: 600; }
+.team-keyboard-channels > button small { display: grid; min-width: 17px; height: 17px; place-items: center; padding-inline: 4px; border-radius: var(--radius-full); background: var(--primary); color: var(--primary-foreground); font-size: 9px; }
+.team-keyboard-channel-hint { margin-left: auto; flex: 0 0 auto; color: var(--muted-foreground); font-size: 9px; }
+.team-keyboard-conversations { display: flex; min-width: 0; align-items: center; gap: 12px; padding: 7px 30px; background: var(--background); }
+.team-keyboard-conversations-label { flex: 0 0 auto; color: var(--muted-foreground); font-size: 9px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+.team-keyboard-conversation-list { display: flex; min-width: 0; flex-wrap: wrap; gap: 6px; }
+.team-keyboard-conversation-list button { display: inline-flex; min-height: 30px; align-items: center; gap: 9px; padding: 5px 9px; border: 1px solid transparent; border-radius: var(--radius-sm); background: transparent; color: var(--muted-foreground); cursor: pointer; font: inherit; font-size: 10px; }
+.team-keyboard-conversation-list button:hover,
+.team-keyboard-conversation-list button.is-active { border-color: var(--border); background: var(--muted); color: var(--foreground); }
+.team-keyboard-conversation-list time { color: var(--muted-foreground); font-size: 9px; }
+.team-keyboard-conversation-list small { color: var(--foreground); font-size: 9px; font-weight: 600; }
+.team-keyboard-thread { width: min(100%, 1040px); margin-inline: auto; }
+.team-channel-switcher-backdrop { position: absolute; z-index: 8; inset: 0; display: grid; place-items: start center; padding: 15vh 16px 20px; background: color-mix(in srgb, var(--foreground) 28%, transparent); }
+.team-channel-switcher { width: min(440px, 100%); overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--background); box-shadow: var(--shadow-large); }
+.team-channel-switcher > header { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px 9px; }
+.team-channel-switcher > header > div { display: flex; align-items: center; gap: 8px; }
+.team-channel-switcher h2 { margin: 0; font-size: 13px; font-weight: 600; }
+.team-switcher-search { display: flex; min-height: 40px; align-items: center; gap: 8px; margin: 0 12px 8px; padding: 0 10px; border: 1px solid var(--input); border-radius: var(--radius); color: var(--muted-foreground); }
+.team-switcher-search input { width: 100%; border: 0; outline: 0; background: transparent; color: var(--foreground); font: inherit; font-size: 12px; }
+.team-switcher-results { display: grid; max-height: 260px; overflow: auto; padding: 4px 8px; }
+.team-switcher-results button { display: flex; min-height: 36px; align-items: center; gap: 9px; padding: 5px 9px; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--foreground); cursor: pointer; text-align: left; }
+.team-switcher-results button:hover,
+.team-switcher-results button[aria-selected="true"] { background: var(--accent); }
+.team-switcher-results button span { font-size: 11px; font-weight: 550; }
+.team-switcher-results button small { margin-left: auto; color: var(--muted-foreground); font-size: 9px; }
+.team-switcher-results > p { margin: 10px; color: var(--muted-foreground); font-size: 11px; }
+.team-switcher-hint { margin: 0; padding: 10px 14px; background: var(--muted); color: var(--muted-foreground); font-size: 9px; }
+.team-message-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (max-width: 960px) {
+  .team-message-thread-first { grid-template-columns: 205px minmax(0, 1fr); }
+  .team-message-inbox-layout { grid-template-columns: 190px 255px minmax(0, 1fr); }
+}
+
+@media (max-width: 720px) {
+  .team-message-thread-first { grid-template-columns: minmax(0, 1fr); grid-template-rows: 65px minmax(0, 1fr); }
+  .team-message-inbox-layout { grid-template-columns: minmax(0, 1fr); grid-template-rows: 60px 126px minmax(0, 1fr); }
+  .team-message-keyboard { grid-template-rows: 58px 46px auto minmax(0, 1fr); }
+}
+
+@container team-message (max-width: 960px) {
+  .team-message-thread-first, .team-message-keyboard { grid-template-columns: 205px minmax(0, 1fr); }
+  .team-message-inbox-layout { grid-template-columns: 190px 255px minmax(0, 1fr); }
+  .team-message-topline { padding-inline: 25px; }
+  .team-message-history { padding-inline: 28px; }
+}
+
+@container team-message (max-width: 720px) {
+  .team-message-thread-first, .team-message-keyboard { grid-template-columns: 1fr; grid-template-rows: 65px minmax(0, 1fr); }
+  .team-message-inbox-layout { grid-template-columns: minmax(0, 1fr); grid-template-rows: 60px 126px minmax(0, 1fr); }
+  .team-message-sidebar { min-height: 0; flex-direction: row; align-items: center; gap: 14px; overflow: hidden; padding: 7px 12px; }
+  .team-message-workspace { flex: 0 0 auto; gap: 8px; padding: 0; }
+  .team-message-mark { width: 31px; height: 31px; font-size: 13px; }
+  .team-message-workspace > div span { display: none; }
+  .team-message-workspace > div strong { max-width: 118px; font-size: 11px; }
+  .team-message-channels { display: flex; min-width: 0; align-items: center; gap: 5px; overflow-x: auto; overflow-y: hidden; margin: 0; }
+  .team-message-channel-wrap { flex: 0 0 auto; }
+  .team-message-channel-wrap + .team-message-channel-wrap { margin: 0; }
+  .team-message-channel-wrap h2, .team-message-user { display: none; }
+  .team-message-channel { width: auto; min-height: 32px; gap: 4px; padding-inline: 8px; font-size: 10px; }
+  .team-message-channel > span:nth-child(2) { max-width: 96px; }
+  .team-message-inbox-layout .team-message-sidebar { grid-row: 1; }
+  .team-message-inbox-layout .team-message-queue { grid-row: 2; padding: 6px 9px; }
+  .team-message-queue-heading { display: none; }
+  .team-message-queue-list { display: flex; gap: 5px; overflow-x: auto; overflow-y: hidden; }
+  .team-message-queue-item { width: 242px; flex: 0 0 242px; align-items: center; padding: 7px; }
+  .team-message-queue-note { display: none; }
+  .team-message-topline { padding: 15px 16px 13px; }
+  .team-message-heading h1 { font-size: 17px; }
+  .team-message-heading p { max-width: 55cqi; }
+  .team-message-heading-meta { display: none; }
+  .team-message-history { gap: 17px; padding: 14px 16px 20px; }
+  .team-message-row { gap: 8px; }
+  .team-message-row .message-bubble { max-width: calc(100% - 40px); }
+  .team-message-row .message-bubble p { font-size: 11px; }
+  .team-message-composer { padding: 9px 14px 12px; }
+  .team-message-composer > p { display: none; }
+  .team-message-inbox-thread { grid-row: 3; }
+  .team-message-thread-first { grid-template-rows: auto minmax(0, 1fr); }
+  .team-message-thread-first .team-message-sidebar { align-items: flex-start; overflow: visible; }
+  .team-message-thread-first .team-message-channels { display: flex; flex: 1; flex-wrap: wrap; align-content: flex-start; overflow: visible; gap: 3px; }
+  .team-message-thread-first .team-message-channel-wrap { position: static; }
+  .team-message-thread-first .team-message-subchannels { margin-left: 8px; }
+  .team-message-keyboard { grid-template-rows: 58px 46px auto minmax(0, 1fr); }
+  .team-keyboard-conversations { align-items: flex-start; gap: 7px; padding: 6px 10px; }
+  .team-keyboard-conversations-label { padding-top: 8px; font-size: 8px; }
+  .team-keyboard-conversation-list { gap: 4px; }
+  .team-keyboard-conversation-list button { min-height: 28px; gap: 5px; padding: 4px 6px; font-size: 9px; }
+  .team-message-inbox-thread .team-message-topline { padding-inline: 15px; }
+  .team-message-inbox-thread .team-message-composer { padding-inline: 14px; }
+  .team-keyboard-commandbar { min-height: 40px; gap: 6px; padding: 5px 10px; }
+  .team-keyboard-commandbar > div { display: none; }
+  .team-keyboard-commandbar .ui-button { min-height: 27px; }
+  .team-keyboard-workspacebar { gap: 8px; padding: 6px 10px; }
+  .team-keyboard-identity { gap: 7px; }
+  .team-keyboard-identity > div strong { max-width: 112px; overflow: hidden; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+  .team-keyboard-identity > div span { display: none; }
+  .team-keyboard-commandbar { flex: 0 0 auto; }
+  .team-keyboard-commandbar > span { display: none; }
+  .team-keyboard-commandbar .ui-button { font-size: 9px; }
+  .team-keyboard-account > span:last-child { display: none; }
+  .team-keyboard-channels { gap: 2px; padding: 5px 8px; }
+  .team-keyboard-channels-label { margin-right: 2px; font-size: 8px; }
+  .team-keyboard-channels > button { gap: 3px; padding-inline: 6px; font-size: 9px; }
+  .team-keyboard-channel-hint { display: none; }
+  .team-keyboard-thread { grid-row: 4; width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .team-message-product *, .team-message-product *::before, .team-message-product *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}

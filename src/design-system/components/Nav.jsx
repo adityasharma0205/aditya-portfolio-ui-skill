@@ -1,4 +1,4 @@
-import { Code2, Component, LayoutDashboard, Moon } from 'lucide-react';
+import { Circle, Code2, Component, LayoutDashboard } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle.jsx';
 
 export function SiteNav({ variant = 'inline', mode = 'dark', onToggleTheme = () => {}, active = 'Design System', onNavigate, items, ariaLabel = 'Portfolio navigation', interactive = true, showThemeToggle = true }) {
@@ -16,7 +16,7 @@ export function SiteNav({ variant = 'inline', mode = 'dark', onToggleTheme = () 
           <Icon size={17} aria-hidden="true" /><span className="dock-label">{label}</span>
         </span>
       ))}
-      {showThemeToggle && <><span className="ui-separator separator--vertical" role="separator" aria-orientation="vertical" /><span className={`dock-item dock-theme-item${interactive ? '' : ' dock-theme-item--static'}`}>{interactive ? <ThemeToggle mode={mode} onToggle={onToggleTheme} /> : <span className="dock-theme-icon" aria-label="Theme"><Moon size={17} aria-hidden="true" /></span>}</span></>}
+      {showThemeToggle && <><span className="ui-separator separator--vertical" role="separator" aria-orientation="vertical" /><span className={`dock-item dock-theme-item${interactive ? '' : ' dock-theme-item--static'}`}>{interactive ? <ThemeToggle mode={mode} onToggle={onToggleTheme} /> : <span className="dock-theme-icon" aria-label="Theme"><Circle size={17} aria-hidden="true" /></span>}</span></>}
     </nav>
   );
 }

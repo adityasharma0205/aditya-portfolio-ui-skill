@@ -198,7 +198,7 @@ a { color: inherit; }
 .component-demo-surface { box-sizing: border-box; width: min(100%, 760px); height: 390px; margin-top: 22px; padding: 18px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .component-demo-surface.input-demo-grid { display: grid; align-content: center; }
 .component-demo-surface > .card-demo-grid { width: 100%; }
-.dock-demo .site-dock { max-width: 100%; flex-wrap: wrap; gap: 6px; padding: 7px 9px; border: 1px solid var(--border); border-radius: 999px; background: var(--card); box-shadow: 0 5px 22px #0003; }
+.dock-demo .site-dock { max-width: 100%; flex-wrap: wrap; gap: 6px; padding: 7px 9px; border: 1px solid var(--border); border-radius: 999px; background: var(--card); box-shadow: none; }
 .dock-demo .dock-item:not(.dock-theme-item) { width: auto; min-width: max-content; height: 40px; padding: 0 11px; border: 1px solid var(--border); border-radius: 999px; }
 .dock-demo .dock-item.is-active { transform: none; }
 .dock-demo .dock-item--static:not(.is-active):hover { transform: none; background: transparent; color: var(--muted-foreground); }

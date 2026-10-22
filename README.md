@@ -20,7 +20,7 @@ npm run build
 - `DESIGN_SYSTEM.md` — source-grounded audit and reuse guidance.
 - `src/design-system/tokens.js` — synchronized semantic colors, typography, spacing, radius, elevation, and motion values.
 - `src/design-system/audit.js` — source map, component inventory, portfolio patterns, and responsive rules.
-- `src/design-system/components.jsx` — reusable React implementations and interactive examples.
+- `src/design-system/components/` — reusable React implementations, one component per file.
 - `src/design-system/DesignSystemPage.jsx` — the documentation page and component demonstrations.
 
-The required Input is marked as an addition because the source portfolio is link-based and has no form. Sheet, Accordion, and Collapsible are marked as shared-library primitives that exist in the source but are not mounted on the portfolio page.
+The required Input is marked as an addition because the source portfolio is link-based and has no form. The documentation app implements Button, Input, Card, Tag, Nav, List, Modal, Sheet, Avatar, Divider, Message Bubble, and Prompt Box in the component directory.

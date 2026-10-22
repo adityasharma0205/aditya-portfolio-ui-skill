@@ -72,12 +72,6 @@ export const colorTokenGroups = [
   },
 ];
 
-export const rawPalette = [
-  { label: 'Sprout icon · light', value: '#5C8A60', group: 'Illustration-specific' },
-  { label: 'Sprout icon · dark', value: '#9DBD9F', group: 'Illustration-specific' },
-  { label: 'Flickering grid', value: 'rgb(0, 0, 0)', group: 'Motion/decoration default' },
-];
-
 export const typeTokens = {
   sans: { name: 'Geist', variable: '--font-sans', weights: [400, 500, 600, 700], role: 'Headings, body, cards, and controls' },
   mono: { name: 'Geist Mono', variable: '--font-mono', weights: [300, 400, 500, 600, 700], role: 'Code and technical metadata' },
@@ -163,7 +157,9 @@ export const elevationTokens = [
 ];
 
 export function themeStyle(mode = 'dark') {
-  const style = { '--radius': '0.625rem', '--ds-radius': '0.625rem', ...motionStyle };
+  const baseRadius = layoutTokens.radius.find(({ name }) => name === 'base')?.value ?? '10px';
+  const radiusStyle = Object.fromEntries(layoutTokens.radius.map(({ name, value }) => [`--radius-${name}`, value]));
+  const style = { ...radiusStyle, '--radius': baseRadius, ...motionStyle };
   for (const [key, token] of Object.entries(semanticTokens)) {
     const cssName = key.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
     style[`--${cssName}`] = token[mode];

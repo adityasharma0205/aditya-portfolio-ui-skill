@@ -8,5 +8,5 @@ export const buttonVariants = {
 };
 
 export function Button({ variant = 'default', size = 'default', className = '', children, ...props }) {
-  return <button className={`ui-button ${buttonVariants[variant] ?? buttonVariants.default} button--${size} ${className}`} {...props}>{children}</button>;
+  return <button type="button" className={`ui-button ${buttonVariants[variant] ?? buttonVariants.default} button--${size} ${className}`} {...props}>{children}</button>;
 }

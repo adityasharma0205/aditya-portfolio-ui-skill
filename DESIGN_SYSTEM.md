@@ -1,6 +1,6 @@
 # Aditya Portfolio Design System
 
-Source audit of [`adityasharma0205/portfolio`](https://github.com/adityasharma0205/portfolio), commit `ced158f`. This file and the interactive documentation in `src/design-system/DesignSystemPage.jsx` describe the same system. The canonical token data lives in `src/design-system/tokens.js`; reusable React components and their examples live in `src/design-system/components.jsx`.
+Source audit of [`adityasharma0205/portfolio`](https://github.com/adityasharma0205/portfolio), commit `ced158f`. This file and the interactive documentation in `src/design-system/DesignSystemPage.jsx` describe the same system. The canonical token data lives in `src/design-system/tokens.js`; reusable React components live separately in `src/design-system/components/` and are composed into examples by the documentation page.
 
 ## Source map
 
@@ -17,7 +17,7 @@ Source audit of [`adityasharma0205/portfolio`](https://github.com/adityasharma02
 
 ### Color
 
-The source declares 31 semantic slots in OKLCH. Light/dark values are represented as data in `src/design-system/tokens.js` and rendered in the Colors section. They include page and text surfaces, card/popover pairs, primary/secondary/muted/accent/destructive colors, border/input/ring, five chart colors, and nine sidebar roles. The chart palette is defined but no chart component is rendered on the audited portfolio route. The sidebar palette is a shared theme primitive; the portfolio page itself uses a profile rail.
+The source declares 31 semantic slots in OKLCH. The documentation adds seven semantic status slots (destructive foreground plus success, warning, and info pairs); all 38 are represented in `src/design-system/tokens.js` and rendered in the Colors section. They include page and text surfaces, card/popover pairs, primary/secondary/muted/accent/destructive colors, border/input/ring, five chart colors, and nine sidebar roles. The chart palette is defined but no chart component is rendered on the audited portfolio route. The sidebar palette is a shared theme primitive; the portfolio page itself uses a profile rail.
 
 Most UI color is semantic. The sprout illustration has light `#5C8A60` and dark `#9DBD9F` variants; the flickering grid defaults to `rgb(0, 0, 0)`. Logos and technology marks retain their asset brand colors.
 

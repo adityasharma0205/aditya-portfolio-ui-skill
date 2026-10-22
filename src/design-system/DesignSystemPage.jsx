@@ -29,7 +29,7 @@ import {
 } from './tokens.js';
 import FlickeringGrid from './FlickeringGrid.jsx';
 import ProductExamplesPage from './ProductExamplesPage.jsx';
-import skillSource from '../../skill.md?raw';
+import skillSource from '../../skills/portfolio-ui/SKILL.md?raw';
 
 const navigationTree = [
   { name: 'Start here', children: [{ id: 'overview', label: 'Introduction' }] },
@@ -57,14 +57,8 @@ const navigationTree = [
   ] },
 ];
 
-function normalCase(value) {
-  return String(value).toLowerCase().replace(/(^|\/\s*)([a-z])/g, (_, prefix, letter) => `${prefix}${letter.toUpperCase()}`);
-}
-
-function Kicker() { return null; }
-
-function SectionIntro({ label, title, description }) {
-  return <div className="section-intro"><Kicker>{label}</Kicker><h2>{title}</h2><p>{description}</p></div>;
+function SectionIntro({ title, description }) {
+  return <div className="section-intro"><h2>{title}</h2><p>{description}</p></div>;
 }
 
 function TokenColor({ name, token, mode }) {
@@ -136,7 +130,7 @@ function MotionTokenCard({ item, durationToken, easingToken }) {
 }
 
 export default function DesignSystemPage() {
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState('dark');
   const [activeScreen, setActiveScreen] = useState(() => {
     try {
       const savedScreen = window.localStorage.getItem('aditya-portfolio-active-screen');
@@ -307,7 +301,7 @@ export default function DesignSystemPage() {
         </>
       </main>
       </>}
-      {activeScreen === 'Code Skill' && <main className="ds-content ds-skill-screen"><section className="skill-page"><h1>Code Skill</h1><p>Instructions that turn my design system into a reusable capability for AI agents, enabling them to build new interfaces with consistent visual language and intentional design decisions.</p><CodeBlock title="skill.md" code={skillSource} /></section></main>}
+      {activeScreen === 'Code Skill' && <main className="ds-content ds-skill-screen"><section className="skill-page"><h1>Code Skill</h1><p>Instructions that turn my design system into a reusable capability for AI agents, enabling them to build new interfaces with consistent visual language and intentional design decisions.</p><CodeBlock title="skills/portfolio-ui/SKILL.md" code={skillSource} markdownPreview /></section></main>}
       {activeScreen === 'Examples' && <ProductExamplesPage />}
       <SiteNav variant="floating" mode={mode} onToggleTheme={() => setMode(mode === 'dark' ? 'light' : 'dark')} active={activeScreen} onNavigate={(screen) => { setActiveScreen(screen); window.scrollTo({ top: 0, behavior: 'smooth' }); }} />
     </div>

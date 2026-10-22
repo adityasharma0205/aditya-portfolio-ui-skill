@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
+import TeamMessagingLayout from './examples/TeamMessagingLayout.jsx';
 
 const productLayouts = [
   {
     product: 'Team messaging app',
-    context: 'A Slack alternative',
     layouts: [
       { number: '01', name: 'Workspace', description: 'Channels, a conversation thread, and message composer.', tint: '#dcecff' },
       { number: '02', name: 'Thread view', description: 'A focused conversation with replies and a place to respond.', tint: '#e9e2ff' },
@@ -13,7 +13,6 @@ const productLayouts = [
   },
   {
     product: 'Goodreads',
-    context: 'A reader’s book profile and tracking space',
     layouts: [
       { number: '04', name: 'Reader profile', description: 'Currently reading, shelves, reading stats or yearly challenge, and recent reviews.', tint: '#f6e4d8' },
       { number: '05', name: 'Bookshelves', description: 'A reader’s organized shelves and book lists.', tint: '#f5e5ed' },
@@ -46,14 +45,33 @@ export default function ProductExamplesPage() {
         <div className="product-layout-groups">
           {productLayouts.map((group, groupIndex) => (
             <section className="product-layout-group" key={group.product} aria-label={group.product}>
+              <header className="product-layout-group-heading">
+                <div><h2>{group.product}</h2></div>
+              </header>
               <div className="product-screen-carousel" ref={(node) => { carouselRefs.current[groupIndex] = node; }}>
-              <div className="product-screen-viewport" aria-label={`${group.product} screen placeholders`}>
+              <div className="product-screen-viewport" aria-label={`${group.product} product layouts`}>
                 <div className="product-screen-track" style={{ transform: `translateX(-${activeScreens[groupIndex] * 1298}px)` }}>
                   <div className="product-screen-set">
                     {group.layouts.map((layout, layoutIndex) => (
-                      <div className="product-screen-preview" key={layout.number}>
-                        <div className="product-screen-frame" style={{ '--canvas-tint': layout.tint }} data-canvas-size="1280 x 832" role="img" aria-label={`${group.product} ${layout.name} screen placeholder, 1280 by 832. ${layout.description}`} />
-                        <span className="product-screen-badge">Layout {layoutIndex + 1}</span>
+                      <div className={`product-screen-preview${group.product === 'Team messaging app' && layoutIndex === 0 ? ' product-screen-preview--messaging' : ''}`} key={layout.number}>
+                        {group.product === 'Team messaging app' && layoutIndex === 0 ? (
+                          <div className="product-screen-frame product-screen-frame--messaging" data-canvas-size="1280 x 832">
+                            <TeamMessagingLayout />
+                          </div>
+                        ) : (
+                          <div className="product-screen-frame" style={{ '--canvas-tint': layout.tint }} data-canvas-size="1280 x 832" role="img" aria-label={`${group.product} ${layout.name} screen placeholder, 1280 by 832. ${layout.description}`} />
+                        )}
+                        {group.product === 'Team messaging app' && layoutIndex === 0 && (
+                          <a
+                            className="ui-button button--outline button--sm product-screen-open-full-view"
+                            href={`${window.location.pathname}?view=team-messaging`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <Maximize2 size={14} aria-hidden="true" />
+                            Open in new tab
+                          </a>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -62,9 +80,10 @@ export default function ProductExamplesPage() {
               {activeScreens[groupIndex] > 0 && <button className="product-screen-previous" style={{ left: `${backButtonOffsets[groupIndex] ?? -80}px` }} type="button" aria-label={`Show previous ${group.product} screen`} onClick={() => setActiveScreens((current) => current.map((screen, index) => index === groupIndex ? screen - 1 : screen))}><ChevronLeft size={20} /></button>}
               <button className="product-screen-next" type="button" aria-label={`Show next ${group.product} screen`} onClick={() => setActiveScreens((current) => current.map((screen, index) => index === groupIndex ? (screen + 1) % 3 : screen))}><ChevronRight size={20} /></button>
               </div>
-              <header className="product-layout-group-heading">
-                <div><h2>{group.product}</h2><p>{group.context}</p></div>
-              </header>
+              <div className="product-layout-caption" aria-live="polite">
+                <h3>Layout {activeScreens[groupIndex] + 1}</h3>
+                <p>{group.layouts[activeScreens[groupIndex]].description}</p>
+              </div>
             </section>
           ))}
         </div>

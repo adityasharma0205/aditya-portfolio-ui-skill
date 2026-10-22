@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import {
   ArrowUpRight,
   Check,
+  Circle,
   PanelRight,
 } from 'lucide-react';
 import { Avatar } from './components/Avatar.jsx';
@@ -262,8 +263,8 @@ export default function DesignSystemPage() {
         </SectionBlock>
 
         <SectionBlock id="nav">
-          <div className="section-title-line"><SectionIntro label="03.5 / NAVIGATION" title="Nav" description="The same navigation dock used throughout the site." /></div>
-          <div className="component-demo-surface"><div className="dock-demo"><SiteNav variant="inline" mode={mode} onToggleTheme={() => setMode(mode === 'dark' ? 'light' : 'dark')} /></div></div>
+          <div className="section-title-line"><SectionIntro label="03.5 / NAVIGATION" title="Nav" description="A rounded navigation bar with clear, generic tab labels." /></div>
+          <div className="component-demo-surface"><div className="dock-demo"><SiteNav variant="inline" ariaLabel="Static navigation example" items={[{ label: 'Tab 1', icon: Circle }, { label: 'Tab 2', icon: Circle }, { label: 'Tab 3', icon: Circle }]} active="Tab 1" interactive={false} showThemeToggle={false} /></div></div>
         </SectionBlock>
 
         <SectionBlock id="list">

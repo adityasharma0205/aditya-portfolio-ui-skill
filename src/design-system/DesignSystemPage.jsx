@@ -264,7 +264,7 @@ export default function DesignSystemPage() {
 
         <SectionBlock id="nav">
           <div className="section-title-line"><SectionIntro label="03.5 / NAVIGATION" title="Nav" description="A rounded navigation bar with clear, generic tab labels." /></div>
-          <div className="component-demo-surface"><div className="dock-demo"><SiteNav variant="inline" ariaLabel="Static navigation example" items={[{ label: 'Tab 1', icon: Circle }, { label: 'Tab 2', icon: Circle }, { label: 'Tab 3', icon: Circle }]} active="Tab 1" interactive={false} showThemeToggle={false} /></div></div>
+          <div className="component-demo-surface"><div className="dock-demo"><SiteNav variant="inline" ariaLabel="Static navigation example" items={[{ label: 'Tab 1', icon: Circle }, { label: 'Tab 2', icon: Circle }, { label: 'Tab 3', icon: Circle }]} active="Tab 1" interactive={false} showThemeToggle /></div></div>
         </SectionBlock>
 
         <SectionBlock id="list">
